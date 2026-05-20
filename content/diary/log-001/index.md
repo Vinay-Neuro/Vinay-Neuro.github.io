@@ -19,13 +19,3 @@ This is my first entry. Writing this one in my diary. Lately, I have been plague
 I will be logging entries from now on. Not just random thoughts but also... I want to maintain a personal mind journal of sorts... where I pen down concepts in neuroscience, reviews of papers or books I have read or talks that I have attended and my reflections on them. 
 
 Let's see where this journey takes me. Doing this purely out of genuine interest to understand->feel->relish science the way I imagined... and the way it deserves to be. 
-
-## My reflection
-
-## Links
-
-- [Source](https://example.com)
-
-## Figures
-
-![Figure caption](figure1.png)
