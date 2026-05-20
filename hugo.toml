@@ -1,0 +1,9 @@
+baseURL = 'https://Vinay-Neuro.github.io/'
+languageCode = 'en-us'
+title = 'Vinay Suresh'
+theme = 'black-and-light'
+
+[params]
+  siteHeading = "Neuroscience Logs"
+  siteTagline = "Books, papers, talks, and reflections."
+

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Vinay Suresh</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on Vinay Suresh</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 20 May 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Why I Started This Website</title>
+      <link>http://localhost:1313/posts/my-first-post/</link>
+      <pubDate>Wed, 20 May 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/my-first-post/</guid>
+      <description>&lt;p&gt;I wanted a place to think publicly about neuroscience, books, Oxford talks, and ideas that interest me.&lt;/p&gt;&#xA;&lt;p&gt;This site is partly a notebook and partly a diary of understanding.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
