@@ -1,13 +1,13 @@
 ---
-title: "First entry - 21/05/2026"
+title: "Log 001"
 date: 2026-05-21
 draft: true
 tags:
-  "first-log"
-  "diary"
-  "thoughts"
+  - first-log
+  - diary
+  - thoughts
 categories:
-  "diary"
+  - diary
 ---
 
 Write your post here.

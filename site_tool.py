@@ -189,17 +189,20 @@ def create_post(
     tag_lines = "\n".join(f'  "{t}"' for t in tags)
     cat_lines = "\n".join(f'  "{c}"' for c in categories)
 
-    extra_summary = f'\nsummary: "{summary}"' if summary else ""
+    summary_line = f'summary: "{summary}"\n' if summary else ""
+
+    tags_yaml = "\n".join(f"  - {t}" for t in tags) if tags else "  []"
+    cats_yaml = "\n".join(f"  - {c}" for c in categories) if categories else "  []"
 
     content = dedent(
         f"""---
 title: "{title}"
 date: {date.today().isoformat()}
-draft: {str(draft).lower()}{extra_summary}
-tags:
-{tag_lines if tag_lines else '  []'}
+draft: {str(draft).lower()}
+{summary_line}tags:
+{tags_yaml}
 categories:
-{cat_lines if cat_lines else '  []'}
+{cats_yaml}
 ---
 
 Write your post here.
