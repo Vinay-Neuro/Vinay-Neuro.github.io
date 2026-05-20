@@ -6,3 +6,39 @@ theme = 'black-and-light'
 [params]
   siteHeading = "Neuroscience Notes"
   siteTagline = "Books, papers, talks, and reflections."
+
+[menus]
+  [[menus.main]]
+    name = "Home"
+    pageRef = "/"
+    weight = 10
+
+  [[menus.main]]
+    name = "Concepts"
+    pageRef = "/concepts"
+    weight = 20
+
+  [[menus.main]]
+    name = "Paper Reviews"
+    pageRef = "/paper-reviews"
+    weight = 30
+
+  [[menus.main]]
+    name = "Book Reviews"
+    pageRef = "/book-reviews"
+    weight = 40
+
+  [[menus.main]]
+    name = "Talks"
+    pageRef = "/oxford-talk-reviews"
+    weight = 50
+
+  [[menus.main]]
+    name = "Diary"
+    pageRef = "/diary"
+    weight = 60
+
+  [[menus.main]]
+    name = "About"
+    pageRef = "/about"
+    weight = 70
