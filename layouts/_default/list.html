@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="{{ .Site.Language.Lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+  <style>
+    body {
+      max-width: 760px;
+      margin: 40px auto;
+      padding: 0 16px;
+      line-height: 1.7;
+      font-family: Georgia, serif;
+    }
+    a { color: inherit; }
+    .muted { opacity: 0.75; }
+    ul { padding-left: 1.2rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1><a href="{{ "/" | relURL }}">{{ .Site.Title }}</a></h1>
+    {{ with .Site.Params.siteTagline }}<p class="muted">{{ . }}</p>{{ end }}
+  </header>
+
+  <main>
+    <h2>{{ .Title }}</h2>
+    {{ .Content }}
+
+    {{ if .Pages }}
+      <ul>
+        {{ range .Pages.ByDate.Reverse }}
+          <li>
+            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+            <span class="muted">— {{ .Date.Format "2 Jan 2006" }}</span>
+          </li>
+        {{ end }}
+      </ul>
+    {{ else }}
+      <p class="muted">No posts yet.</p>
+    {{ end }}
+  </main>
+</body>
+</html>

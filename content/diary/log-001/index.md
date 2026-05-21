@@ -1,7 +1,7 @@
 ---
 title: "Log 001"
 date: 2026-05-21
-draft: true
+draft: false
 tags:
   - first-log
   - diary
