@@ -1,33 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Home on Vinay Neuro</title>
-    <link>http://localhost:1313/</link>
-    <description>Recent content in Home on Vinay Neuro</description>
+    <title>Diary on Vinay Neuro</title>
+    <link>http://localhost:1313/categories/diary/</link>
+    <description>Recent content in Diary on Vinay Neuro</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 21 May 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/categories/diary/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Log 001</title>
       <link>http://localhost:1313/diary/log-001/</link>
       <pubDate>Thu, 21 May 2026 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/diary/log-001/</guid>
       <description>&lt;p&gt;This is my first entry. Writing this one in my diary. Lately, I have been plagued by a massive stream of thoughts. Mostly negative/depressive/anxious/fear/OCD-related/guilt. I have decided to move on (harder said than done). I have genuinely enjoyed the thrill that science gives&amp;hellip; which is the reason I pushed myself all the way here to Oxford. I did sacrifice a lot of my time and energy just to satisfy my scientific curiousity. And I think I need to do justice to that.&#xA;I will be logging entries from now on. Not just random thoughts but also&amp;hellip; I want to maintain a personal mind journal of sorts&amp;hellip; where I pen down concepts in neuroscience, reviews of papers or books I have read or talks that I have attended and my reflections on them.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Why I Started This Website</title>
-      <link>http://localhost:1313/posts/my-first-post/</link>
-      <pubDate>Wed, 20 May 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/my-first-post/</guid>
-      <description>&lt;p&gt;I wanted a place to think publicly about neuroscience, books, Oxford talks, and ideas that interest me.&lt;/p&gt;&#xA;&lt;p&gt;This site is partly a notebook and partly a diary of understanding.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>About</title>
-      <link>http://localhost:1313/about/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/about/</guid>
-      <description>&lt;p&gt;This site is a personal neuroscience writing space.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
