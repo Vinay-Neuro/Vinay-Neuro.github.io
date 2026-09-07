@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Brunel networks</title>
+  <style>
+/* Added by setup_brunel_site.py */
+.brunel-wrap{max-width:1050px;margin:0 auto;padding:2.5rem 1.25rem 5rem;line-height:1.72}
+.brunel-hero{padding:2.6rem 0 1rem}
+.brunel-kicker{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;opacity:.68;margin:0 0 .7rem}
+.brunel-title{font-size:clamp(2.1rem,5vw,4.1rem);line-height:1.04;margin:.1rem 0 1rem}
+.brunel-subtitle{font-size:1.15rem;max-width:820px;opacity:.78}
+.brunel-note{margin:1.2rem 0;padding:1rem 1.1rem;border-left:4px solid currentColor;background:rgba(127,127,127,.08);border-radius:.4rem}
+.brunel-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem;margin:1.6rem 0}
+.brunel-card{padding:1.25rem;border:1px solid rgba(127,127,127,.25);border-radius:1rem;background:rgba(127,127,127,.05)}
+.brunel-card h3{margin-top:0}
+.brunel-equation{padding:1rem 1.2rem;margin:1rem 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:rgba(127,127,127,.08);border-radius:.8rem;overflow:auto}
+.brunel-btns{display:flex;flex-wrap:wrap;gap:.75rem;margin:1rem 0 1.5rem}
+.brunel-btn{display:inline-block;padding:.72rem 1rem;border:1px solid currentColor;border-radius:.7rem;text-decoration:none;font-weight:650}
+.brunel-btn.primary{background:currentColor}
+.brunel-btn.primary span{color:Canvas}
+.brunel-tag{display:inline-block;font-size:.82rem;padding:.15rem .5rem;border:1px solid rgba(127,127,127,.3);border-radius:999px;margin:.1rem .25rem .1rem 0}
+.brunel-table{width:100%;border-collapse:collapse;margin:1.25rem 0}
+.brunel-table th,.brunel-table td{padding:.72rem .65rem;border-bottom:1px solid rgba(127,127,127,.22);text-align:left;vertical-align:top}
+.brunel-table th{font-weight:700}
+.brunel-small{font-size:.9rem;opacity:.75}
+.brunel-quote{font-size:1.18rem;font-style:italic;padding:1.25rem 1.4rem;margin:1.4rem 0;border-left:4px solid rgba(127,127,127,.45)}
+.brunel-figure{margin:1.5rem 0;padding:1rem;border:1px solid rgba(127,127,127,.2);border-radius:1rem;background:rgba(127,127,127,.04)}
+.brunel-figure svg{width:100%;height:auto;display:block}
+.brunel-footer{margin-top:3rem;padding-top:1.2rem;border-top:1px solid rgba(127,127,127,.2);font-size:.9rem;opacity:.78}
+.brunel-site-header{padding:1.2rem 1.5rem;border-bottom:1px solid rgba(127,127,127,.2)}
+.brunel-site-header a{text-decoration:none;font-weight:700}
+@media (max-width:700px){.brunel-wrap{padding-top:1.25rem}.brunel-table{font-size:.92rem}}
+</style>
+</head>
+<body>
+  <header class="brunel-site-header"><a href="index.html">Vinay's Neurocomputational Notes</a></header>
+  <main>
+<div class="brunel-wrap">
+  <div class="brunel-hero">
+    <p class="brunel-kicker">Concepts · Computational neuroscience</p>
+    <h1 class="brunel-title">Brunel networks</h1>
+    <p class="brunel-subtitle">From a leaky integrate-and-fire neuron to collective excitatory–inhibitory dynamics — and the point where a network starts doing something none of its individual neurons were explicitly told to do.</p>
+    <div class="brunel-btns">
+      <a class="brunel-btn primary" href="brunel-playground.html"><span>See the simulation →</span></a>
+      <a class="brunel-btn" href="https://colab.research.google.com/github/Vinay-Neuro/Vinay-Neuro.github.io/blob/main/assets/notebooks/brunel_network_amplitude_spectrum_hands_on.ipynb" target="_blank" rel="noopener">Open the Colab notebook</a>
+    </div>
+  </div>
+
+  <div class="brunel-note"><strong>Why I am writing this:</strong> these notes follow the progression of Dr. Jyotika Bahuguna's <em>Introduction to Neurocomputational Modeling (I)</em> lecture: start with a simple neuron, make explicit modelling choices, connect neurons, and ask what collective behaviour emerges.</div>
+
+  <h2>01 · Why model a neuron?</h2>
+  <p>A model is a way of turning an intuition into something that can be tested. The lecture frames modelling as a tool for understanding mechanisms, making qualitative and quantitative predictions, exploring “what if?” worlds, and building theory from simpler rules.</p>
+  <div class="brunel-quote">“There is no best model. There is a best model for a question.”</div>
+  <p class="brunel-small">— framing used in Dr. Bahuguna's lecture around reduced neuronal models.</p>
+
+  <h2>02 · The leaky integrate-and-fire neuron</h2>
+  <p>The first abstraction is to treat the membrane potential as a dynamical variable. The neuron integrates input, leaks toward its resting state, and emits a spike when a threshold is reached.</p>
+  <div class="brunel-equation">τ<sub>m</sub> dv/dt = −(v − V<sub>rest</sub>) + I<sub>ext</sub>/g</div>
+  <div class="brunel-grid">
+    <div class="brunel-card"><h3>τ<sub>m</sub></h3><p>The membrane timescale: how quickly the membrane responds.</p></div>
+    <div class="brunel-card"><h3>I<sub>ext</sub></h3><p>External drive. More drive generally makes threshold crossings easier to reach.</p></div>
+    <div class="brunel-card"><h3>Threshold + reset</h3><p>When the model reaches threshold, it emits a spike and is reset.</p></div>
+  </div>
+
+  <h2>03 · From one neuron to a network</h2>
+  <p>Synapses turn each spike into a change in another neuron's future trajectory. The lecture emphasizes both synaptic strength and synaptic timescales as modelling choices.</p>
+  <div class="brunel-equation">ds<sub>e</sub>/dt = −s<sub>e</sub>/τ<sub>syn</sub> &nbsp;&nbsp;&nbsp; ds<sub>i</sub>/dt = −s<sub>i</sub>/τ<sub>syn</sub></div>
+  <p>For the network used in the summer project, excitatory events add a synaptic contribution <code>+J</code>, while inhibitory events contribute <code>−gJ</code>. The parameter <code>g</code> therefore controls the relative strength of inhibition.</p>
+
+  <h2>04 · The Brunel network</h2>
+  <p>The model is a mesoscale recurrent network containing excitatory and inhibitory populations. In the implementation used for the project:</p>
+  <div class="brunel-grid">
+    <div class="brunel-card"><h3>2,000 E + 500 I</h3><p>A total population of 2,500 neurons.</p></div>
+    <div class="brunel-card"><h3>Random connectivity</h3><p>Connection probability ε = 0.1 for the recurrent E/I connections.</p></div>
+    <div class="brunel-card"><h3>Poisson drive</h3><p>Stochastic background input provides ongoing external drive to the population.</p></div>
+  </div>
+
+  <h2>05 · What does “network state” mean?</h2>
+  <p>One useful distinction is between <strong>synchrony</strong> and <strong>regularity</strong>. Synchrony asks whether neurons spike together. Regularity asks whether a neuron's spikes occur at roughly regular intervals.</p>
+  <table class="brunel-table">
+    <thead><tr><th></th><th>Regular</th><th>Irregular</th></tr></thead>
+    <tbody><tr><th>Synchronous</th><td>coherent rhythmic activity</td><td>synchronous–irregular behaviour</td></tr><tr><th>Asynchronous</th><td>dispersed, regular firing</td><td>asynchronous–irregular behaviour</td></tr></tbody>
+  </table>
+
+  <h2>06 · Where can oscillations come from?</h2>
+  <p>The interesting question is not “how do I add a 20 Hz oscillator?” but “can recurrent E/I interactions create a preferred timescale on their own?” The lecture shows that changing the inhibitory-to-excitatory balance can move a network between different activity regimes, including asynchronous and synchronous regimes.</p>
+  <div class="brunel-note"><strong>The key intuition:</strong> excitation pushes activity forward; inhibition pushes it back. Their feedback, delays and finite synaptic timescales can favour particular temporal patterns.</div>
+
+  <h2>07 · The modelling choices I played with</h2>
+  <div class="brunel-grid">
+    <div class="brunel-card"><h3><code>g</code></h3><p>Relative inhibitory strength. In the project sweep, <code>g = 4.5</code> gave the strongest response around the explored ~20 Hz region.</p></div>
+    <div class="brunel-card"><h3><code>τ<sub>syn</sub></code></h3><p>Synaptic decay time. Increasing it kept the dominant frequency relatively stable in the explored range while flattening the spectral peak.</p></div>
+    <div class="brunel-card"><h3><code>w</code></h3><p>Adaptation strength. Increasing adaptation reduced response amplitude and shifted the preferred resonant frequency lower in the project simulations.</p></div>
+  </div>
+
+  <h2>08 · Spikes → population rate → spectrum</h2>
+  <p>The notebook records spike times and population firing rate, removes the transient and mean, then computes a Fourier amplitude spectrum from the population activity. That turns a visually messy raster into a compact question: <em>which temporal scales dominate the population?</em></p>
+
+  <div class="brunel-figure" aria-label="Conceptual pipeline from neurons to frequency spectrum">
+    <svg viewBox="0 0 1000 240" role="img">
+      <rect x="25" y="70" width="220" height="100" rx="18" fill="none" stroke="currentColor" stroke-width="2"/>
+      <text x="135" y="105" text-anchor="middle" font-size="24">LIF neurons</text>
+      <text x="135" y="137" text-anchor="middle" font-size="16">E + I + Poisson drive</text>
+      <line x1="245" y1="120" x2="340" y2="120" stroke="currentColor" stroke-width="3" marker-end="url(#arrow)"/>
+      <rect x="340" y="70" width="270" height="100" rx="18" fill="none" stroke="currentColor" stroke-width="2"/>
+      <text x="475" y="105" text-anchor="middle" font-size="24">Population activity</text>
+      <text x="475" y="137" text-anchor="middle" font-size="16">raster + firing rate</text>
+      <line x1="610" y1="120" x2="705" y2="120" stroke="currentColor" stroke-width="3" marker-end="url(#arrow)"/>
+      <rect x="705" y="70" width="270" height="100" rx="18" fill="none" stroke="currentColor" stroke-width="2"/>
+      <text x="840" y="105" text-anchor="middle" font-size="24">Frequency spectrum</text>
+      <text x="840" y="137" text-anchor="middle" font-size="16">dominant temporal scales</text>
+      <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="currentColor"/></marker></defs>
+    </svg>
+  </div>
+
+  <h2>09 · What I take away</h2>
+  <p>This model is deliberately reduced. Its value is that it gives me a controlled virtual laboratory: change a parameter, rerun the network, and see which aspects of collective behaviour move with it.</p>
+  <div class="brunel-note"><strong>My current interpretation:</strong> the model suggests that collective resonance is a property of the interaction between intrinsic dynamics, synaptic timescales and E/I balance—not a property of a single neuron in isolation.</div>
+
+  <div class="brunel-footer">
+    <p><strong>Lecture source:</strong> Jyotika Bahuguna, <em>Introduction to Neurocomputational Modeling (I)</em>.</p>
+    <p><strong>Project source:</strong> Vinay, Julie &amp; Ebru, <em>Parameter-Dependent Emergent Oscillatory Dynamics in Recurrent Excitatory–Inhibitory Networks</em>, supervised by Jyotika Bahuguna, Summer School Project 2026.</p>
+    <p><a href="brunel-playground.html">Continue to the hands-on simulation →</a></p>
+  </div>
+</div>
+</main>
+</body>
+</html>

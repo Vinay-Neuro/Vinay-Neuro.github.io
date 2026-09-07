@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Brunel network playground</title>
+  <style>
+/* Added by setup_brunel_site.py */
+.brunel-wrap{max-width:1050px;margin:0 auto;padding:2.5rem 1.25rem 5rem;line-height:1.72}
+.brunel-hero{padding:2.6rem 0 1rem}
+.brunel-kicker{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;opacity:.68;margin:0 0 .7rem}
+.brunel-title{font-size:clamp(2.1rem,5vw,4.1rem);line-height:1.04;margin:.1rem 0 1rem}
+.brunel-subtitle{font-size:1.15rem;max-width:820px;opacity:.78}
+.brunel-note{margin:1.2rem 0;padding:1rem 1.1rem;border-left:4px solid currentColor;background:rgba(127,127,127,.08);border-radius:.4rem}
+.brunel-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem;margin:1.6rem 0}
+.brunel-card{padding:1.25rem;border:1px solid rgba(127,127,127,.25);border-radius:1rem;background:rgba(127,127,127,.05)}
+.brunel-card h3{margin-top:0}
+.brunel-equation{padding:1rem 1.2rem;margin:1rem 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:rgba(127,127,127,.08);border-radius:.8rem;overflow:auto}
+.brunel-btns{display:flex;flex-wrap:wrap;gap:.75rem;margin:1rem 0 1.5rem}
+.brunel-btn{display:inline-block;padding:.72rem 1rem;border:1px solid currentColor;border-radius:.7rem;text-decoration:none;font-weight:650}
+.brunel-btn.primary{background:currentColor}
+.brunel-btn.primary span{color:Canvas}
+.brunel-tag{display:inline-block;font-size:.82rem;padding:.15rem .5rem;border:1px solid rgba(127,127,127,.3);border-radius:999px;margin:.1rem .25rem .1rem 0}
+.brunel-table{width:100%;border-collapse:collapse;margin:1.25rem 0}
+.brunel-table th,.brunel-table td{padding:.72rem .65rem;border-bottom:1px solid rgba(127,127,127,.22);text-align:left;vertical-align:top}
+.brunel-table th{font-weight:700}
+.brunel-small{font-size:.9rem;opacity:.75}
+.brunel-quote{font-size:1.18rem;font-style:italic;padding:1.25rem 1.4rem;margin:1.4rem 0;border-left:4px solid rgba(127,127,127,.45)}
+.brunel-figure{margin:1.5rem 0;padding:1rem;border:1px solid rgba(127,127,127,.2);border-radius:1rem;background:rgba(127,127,127,.04)}
+.brunel-figure svg{width:100%;height:auto;display:block}
+.brunel-footer{margin-top:3rem;padding-top:1.2rem;border-top:1px solid rgba(127,127,127,.2);font-size:.9rem;opacity:.78}
+.brunel-site-header{padding:1.2rem 1.5rem;border-bottom:1px solid rgba(127,127,127,.2)}
+.brunel-site-header a{text-decoration:none;font-weight:700}
+@media (max-width:700px){.brunel-wrap{padding-top:1.25rem}.brunel-table{font-size:.92rem}}
+</style>
+</head>
+<body>
+  <header class="brunel-site-header"><a href="index.html">Vinay's Neurocomputational Notes</a></header>
+  <main>
+<div class="brunel-wrap">
+  <div class="brunel-hero">
+    <p class="brunel-kicker">Playground · Summer School Project 2026</p>
+    <h1 class="brunel-title">Playing with a recurrent E/I network</h1>
+    <p class="brunel-subtitle">A small computational experiment in Brian2: build the network, change a few parameters, and watch the population's response and spectrum change.</p>
+    <div class="brunel-btns">
+      <a class="brunel-btn primary" href="https://colab.research.google.com/github/Vinay-Neuro/Vinay-Neuro.github.io/blob/main/assets/notebooks/brunel_network_amplitude_spectrum_hands_on.ipynb" target="_blank" rel="noopener"><span>Open in Google Colab</span></a>
+      <a class="brunel-btn" href="assets/notebooks/brunel_network_amplitude_spectrum_hands_on.ipynb">View notebook file</a>
+      <a class="brunel-btn" href="brunel-networks.html">Read the concepts →</a>
+    </div>
+  </div>
+
+  <div class="brunel-note"><strong>Collaboration:</strong> Vinay, Julie &amp; Ebru · supervised by Dr. Jyotika Bahuguna. The presentation describes the goal as understanding the dynamics and oscillatory behaviour of a recurrent excitatory–inhibitory network by modifying parameters and running simulations.</div>
+
+  <h2>01 · The model we ran</h2>
+  <table class="brunel-table">
+    <thead><tr><th>Parameter</th><th>Value in the notebook</th><th>Role</th></tr></thead>
+    <tbody>
+      <tr><th>Excitatory neurons</th><td>2000</td><td>Excitatory population</td></tr>
+      <tr><th>Inhibitory neurons</th><td>500</td><td>Inhibitory population</td></tr>
+      <tr><th>τ<sub>m</sub></th><td>20 ms</td><td>Membrane timescale</td></tr>
+      <tr><th>τ<sub>syn</sub></th><td>5 ms baseline</td><td>Synaptic decay timescale</td></tr>
+      <tr><th>g</th><td>4.5 baseline</td><td>Relative inhibitory strength</td></tr>
+      <tr><th>ε</th><td>0.1</td><td>Random recurrent connection probability</td></tr>
+      <tr><th>J</th><td>0.1 mV</td><td>Excitatory synaptic increment</td></tr>
+      <tr><th>Delay</th><td>1.5 ms</td><td>Synaptic delay</td></tr>
+      <tr><th>Refractory</th><td>2 ms</td><td>Post-spike refractory period</td></tr>
+    </tbody>
+  </table>
+
+  <h2>02 · The input is stochastic</h2>
+  <p>The network is driven by a Poisson background input. In the notebook, the mean external rate is derived from an input-level parameter and the thresholding scale of the network. The notebook also contains an optional sinusoidal modulation pathway for future experiments.</p>
+
+  <h2>03 · What we measure</h2>
+  <div class="brunel-grid">
+    <div class="brunel-card"><h3>Raster</h3><p>Who spikes when?</p></div>
+    <div class="brunel-card"><h3>Population rate</h3><p>Does the population become collectively active?</p></div>
+    <div class="brunel-card"><h3>Fourier amplitude</h3><p>Which temporal frequencies carry the population activity?</p></div>
+  </div>
+
+  <h2>04 · Parameter sweep #1 — inhibition</h2>
+  <p>In the summer-project sweep, the response was non-monotonic with respect to <code>g</code>. In the explored parameter range, <code>g = 4.5</code> produced the largest response around the ~20 Hz region.</p>
+  <p><span class="brunel-tag">g = 2.0</span><span class="brunel-tag">g = 4.5</span><span class="brunel-tag">g = 6.0</span><span class="brunel-tag">g = 8.0</span></p>
+
+  <h2>05 · Parameter sweep #2 — synaptic timescale</h2>
+  <p>The project compared several <code>τ<sub>syn</sub></code> values. The dominant frequency stayed relatively stable across the explored range, while the spectral peak became flatter as the synaptic time constant increased. At sufficiently high values, the presentation notes that neurons seemed less able to entrain as a network.</p>
+  <p><span class="brunel-tag">5 ms</span><span class="brunel-tag">10 ms</span><span class="brunel-tag">20 ms</span><span class="brunel-tag">50 ms</span></p>
+
+  <h2>06 · Parameter sweep #3 — adaptation</h2>
+  <p>Increasing adaptation strength reduced the output amplitude and shifted the population's preferred resonant frequency lower in the project simulations.</p>
+  <p><span class="brunel-tag">0 mV</span><span class="brunel-tag">5 mV</span><span class="brunel-tag">10 mV</span><span class="brunel-tag">20 mV</span></p>
+
+  <h2>07 · A useful caveat</h2>
+  <div class="brunel-note"><strong>What this notebook currently computes:</strong> the main spectrum function runs the network under constant-rate stochastic Poisson drive, removes the mean population rate, and computes its FFT amplitude spectrum. The notebook also defines an optional sinusoidal modulation pathway, so a future experiment could directly compare an imposed oscillatory input with the network's emergent spectral preference.</div>
+
+  <h2>08 · What I would try next</h2>
+  <div class="brunel-grid">
+    <div class="brunel-card"><h3>Drive the network</h3><p>Use the sinusoidal modulation already present in the notebook and sweep input frequency systematically.</p></div>
+    <div class="brunel-card"><h3>Map the phase space</h3><p>Turn <code>g × input strength</code> and <code>g × τ<sub>syn</sub></code> into explicit regime maps.</p></div>
+    <div class="brunel-card"><h3>Separate E and I rates</h3><p>Record population firing rates for the two populations and compare their phase relationships.</p></div>
+    <div class="brunel-card"><h3>Quantify synchrony</h3><p>Add a reproducible synchrony measure so “more/less entrained” is not only a visual judgement.</p></div>
+  </div>
+
+  <div class="brunel-footer">
+    <p><strong>Notebook:</strong> original uploaded Brian2/Colab notebook preserved at <code>assets/notebooks/brunel_network_amplitude_spectrum_hands_on.ipynb</code>.</p>
+    <p><strong>Lecture:</strong> Jyotika Bahuguna, <em>Introduction to Neurocomputational Modeling (I)</em>.</p>
+    <p><strong>Project:</strong> Vinay, Julie &amp; Ebru, supervised by Jyotika Bahuguna, Summer School Project 2026.</p>
+  </div>
+</div>
+</main>
+</body>
+</html>
