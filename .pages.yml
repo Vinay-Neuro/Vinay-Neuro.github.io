@@ -13,13 +13,16 @@ media:
     rename: false
 
 content:
-  - name: concepts
+    - name: concepts
     label: Concepts
     type: collection
     path: content/concepts
+    format: yaml-frontmatter
     subfolders: true
+
     exclude:
       - _index.md
+
     view:
       layout: tree
       node:
@@ -29,6 +32,12 @@ content:
         - title
         - date
       primary: title
+
+    operations:
+      create: true
+      rename: false
+      delete: false
+
     fields:
       - name: title
         label: Title
@@ -51,8 +60,6 @@ content:
         options:
           format: markdown
           switcher: true
-          media: images
-
   - name: diary
     label: Diary
     type: collection
