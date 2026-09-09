@@ -1,0 +1,229 @@
+media:
+  - name: images
+    label: Images
+    input: static/images
+    output: /images
+    rename: safe
+
+  - name: notebooks
+    label: Notebooks
+    input: static/notebooks
+    output: /notebooks
+    extensions: [ipynb]
+    rename: false
+
+content:
+  - name: concepts
+    label: Concepts
+    type: collection
+    path: content/concepts
+    subfolders: true
+    exclude:
+      - _index.md
+    view:
+      layout: tree
+      node:
+        filename: index.md
+        hideDirs: others
+      fields:
+        - title
+        - date
+      primary: title
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+
+      - name: date
+        label: Date
+        type: date
+        required: false
+
+      - name: draft
+        label: Draft
+        type: boolean
+        required: false
+
+      - name: body
+        label: Notes
+        type: rich-text
+        options:
+          format: markdown
+          switcher: true
+          media: images
+
+  - name: diary
+    label: Diary
+    type: collection
+    path: content/diary
+    subfolders: true
+    exclude:
+      - _index.md
+    view:
+      layout: tree
+      node:
+        filename: index.md
+        hideDirs: others
+      fields:
+        - title
+        - date
+      primary: title
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+
+      - name: date
+        label: Date
+        type: date
+        required: true
+
+      - name: draft
+        label: Draft
+        type: boolean
+        required: false
+
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+
+      - name: categories
+        label: Categories
+        type: string
+        list: true
+
+      - name: body
+        label: Entry
+        type: rich-text
+        options:
+          format: markdown
+          switcher: true
+          media: images
+
+  - name: paper_reviews
+    label: Paper Reviews
+    type: collection
+    path: content/paper-reviews
+    exclude:
+      - _index.md
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+
+      - name: date
+        label: Date
+        type: date
+
+      - name: draft
+        label: Draft
+        type: boolean
+
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+
+      - name: body
+        label: Review
+        type: rich-text
+        options:
+          format: markdown
+          switcher: true
+          media: images
+
+  - name: book_reviews
+    label: Book Reviews
+    type: collection
+    path: content/book-reviews
+    exclude:
+      - _index.md
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+
+      - name: date
+        label: Date
+        type: date
+
+      - name: draft
+        label: Draft
+        type: boolean
+
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+
+      - name: body
+        label: Review
+        type: rich-text
+        options:
+          format: markdown
+          switcher: true
+          media: images
+
+  - name: posts
+    label: Posts
+    type: collection
+    path: content/posts
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+
+      - name: date
+        label: Date
+        type: date
+
+      - name: draft
+        label: Draft
+        type: boolean
+
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+
+      - name: body
+        label: Post
+        type: rich-text
+        options:
+          format: markdown
+          switcher: true
+          media: images
+
+  - name: about
+    label: About
+    type: file
+    path: content/about.md
+    operations:
+      delete: false
+    fields:
+      - name: title
+        label: Title
+        type: string
+
+      - name: body
+        label: About
+        type: rich-text
+        options:
+          format: markdown
+          switcher: true
+          media: images
+
+settings:
+  commit:
+    identity: user
+    templates:
+      create: "Create {path} via Pages CMS"
+      update: "Update {path} via Pages CMS"
+      delete: "Delete {path} via Pages CMS"
+      rename: "Rename {oldPath} to {newPath} via Pages CMS"
