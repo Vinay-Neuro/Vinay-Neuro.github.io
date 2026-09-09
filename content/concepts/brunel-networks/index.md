@@ -1,10 +1,9 @@
 ---
-title: "Brunel networks"
+title: Brunel networks
 date: 2026-09-07
 draft: false
 ---
-
-These are working notes from **Dr. Jyotika Bahuguna's lectures on neuronal network modelling**, and from the summer-school project I worked on with **Julie and Ebru**. I am writing this mostly to keep track of what the different pieces of the model mean, and what happened when we started changing them.
+These are working notes from the summer school on **Advanced tools for data analyses in neuroscience**, and from the summer-school project I worked on with **Julie and Ebru, supervised by Dr. Jyotika Bahuguna**. 
 
 ## 1. Starting with a LIF neuron
 
@@ -64,10 +63,10 @@ A rough sketch:
                            |
                            v
                +-----------------------+
-               |                       |
+|  |
            +-------+               +-------+
-           |   E   |-------------->|   I   |
-           | 2000  |<--------------|  500  |
+| E | --------------> | I |
+| 2000 | <-------------- | 500 |
            +-------+               +-------+
               \                       /
                \_____ recurrent _____/
@@ -93,7 +92,7 @@ $$
 then scales the actual Poisson rate as
 
 $$
-\nu_{\mathrm{ext}}=\mathrm{input\_level}\,\nu_{\mathrm{thr}}.
+\nu_{\mathrm{ext}}=\mathrm{inputlevel}\nu_{\mathrm{thr}}.
 $$
 
 In our presentation, this was described as 200 independent input streams per neuron, with each event adding $J=0.1$ mV.
@@ -179,7 +178,7 @@ $$
 then computes
 
 $$
-R(f)=\mathcal{F}\{\tilde r(t)\}.
+R(f)=\mathcal{F}\tilde r(t).
 $$
 
 Conceptually:
@@ -254,8 +253,8 @@ For me this is the useful part of the Brunel network: the individual equations a
 
 ## Attribution
 
-These notes are based primarily on **Dr. Jyotika Bahuguna's _Introduction to Neurocomputational Modeling_ lecture / neuronal-circuits modelling material (FunDyn 2026)** and the associated hands-on exercise.
+These notes are based primarily on **Dr. Jyotika Bahuguna's *Introduction to Neurocomputational Modeling* lecture / neuronal-circuits modelling material (FunDyn 2026)** and the associated hands-on exercise.
 
-The simulation discussion comes from our 2026 summer-school project **_Parameter-Dependent Emergent Oscillatory Dynamics in Recurrent Excitatory-Inhibitory Networks_**, by **Vinay, Julie & Ebru**, supervised by **Jyotika Bahuguna**.
+The simulation discussion comes from our 2026 summer-school project ***Parameter-Dependent Emergent Oscillatory Dynamics in Recurrent Excitatory-Inhibitory Networks***, by **Vinay, Julie & Ebru**, supervised by **Jyotika Bahuguna**.
 
 The phase diagram above is my own schematic redraw/summary rather than a copied lecture figure.
